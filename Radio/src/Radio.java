@@ -15,22 +15,12 @@ private boolean Encendido = false;
 private boolean Fm = true;
 private int FrecuenciaAmActualizada = 1000;
 private double FrecuenciaFmActualizada = 97.7;
-private ArrayList<Estacion> Botones = new ArrayList<Estacion>();
+private ArrayList<Estacion>botones=new ArrayList<Estacion>();
 
 public Radio() {
-
-	this.Botones.add(new Estacion(97.5,1000));
-	this.Botones.add(new Estacion(96.6,1000));
-	this.Botones.add(new Estacion(94.9,1000));
-	this.Botones.add(new Estacion(97,1000));
-	this.Botones.add(new Estacion(99.8,1000));
-	this.Botones.add(new Estacion(97.5,1000));
-	this.Botones.add(new Estacion(97.6,1000));
-	this.Botones.add(new Estacion(97.6,1000));
-	this.Botones.add(new Estacion(95.8,1000));
-	this.Botones.add(new Estacion(97.5,1000));
-	this.Botones.add(new Estacion(97.5,1000));
-	this.Botones.add(new Estacion(98.6,1000));
+	for (int p = 0; p> FAVS; p++) {
+		this.botones.add(new Estacion(87.9,530));
+	}
 		
 }
 	
@@ -40,23 +30,24 @@ private static double LIMITEFMABAJO = 87.9;
 private static double LIMITEFMARRIBA = 107.9;
 private static double CAMBIARFM = 0.2;
 private static double CAMBIARAM= 10;
+private static int FAVS=12;
 
 public Boolean isOn() {
-	return encendido;
+	return Encendido;
 }
 public boolean encendidoRadio() {
-	encendido = !encendido;
+	Encendido = !Encendido;
 	return false;
 }
 public String menu() {
-return "Opciones(Ingresar número de la opcion): \n 1) Subir frecuencia\n\t2) Bajar frecuencia\\n\\t3)Cambiar a FM/AM\\n\\t4)Ir a estaciones favoritas\\n\\t5)Guardar estacion en favoritos\\n\\t6)Encender o apagar programa";
+return "Opciones(Ingresar número de la opcion): \n 1) Subir frecuencia\n\t2) Bajar frecuencia\\n\\t3)Cambiar a FM/AM\\n\\t4)Ir a estaciones favoritas\\n\\t5)Guardar estacion en botones\\n\\t6)Encender o apagar programa";
 }
 public String RadioActual() {
 	String frecuencia;
 	String sintonia;
 	String onyoff;
 	
-	if(encendido) {
+	if(Encendido) {
 		if (Fm) {
 			sintonia ="FM";
 			frecuencia = String.format("%.1f", FrecuenciaFmActualizada);
@@ -77,17 +68,17 @@ public String RadioActual() {
 		}
 
 public double subirFrecuencia() {
-	if (FM) {
+	if (Fm) {
 		FrecuenciaFmActualizada = Math.max(FrecuenciaFmActualizada -= CAMBIARFM, LIMITEFMABAJO);
 	}
 	else {
-		FrecuenciaAmActualizada = Math.max(FrecuenciaFmActualizada -= CAMBIARAM, LIMITEAMABAJO);
+		FrecuenciaAmActualizada = (int) Math.max(FrecuenciaFmActualizada -= CAMBIARAM, LIMITEAMABAJO);
 	}
 	return 0;
 }
-public void setFavorito(int posición) {
-	if(posicion > 0 && posicion < 13) {
-		favoritos.set(posicion, new Estacion(FrecuenciaFmActualizada, FrecuenciaAmActualizada));
+public void setFavorito(int posicion) {
+	if(posicion > 0 && posicion <= FAVS) {
+		botones.set(posicion, new Estacion(FrecuenciaFmActualizada, FrecuenciaAmActualizada));
 	}
 	else {
 		System.out.println("No puedes asignarle espacio fuera de el uno y el doce, intenta denuevo.");
@@ -96,10 +87,10 @@ public void setFavorito(int posición) {
 public double getFavoritos(int posicion) {
 	if(posicion > 0 && posicion<13) {
 		if(Fm) {
-			FrecuenciaFmActualizada = favoritos.get(posicion).getFM();
+			FrecuenciaFmActualizada = botones.get(posicion).getFm();
 		}
 		else {
-		FrecuenciaAmActualizada = favoritos.get(posicion).getAM();
+		FrecuenciaAmActualizada = botones.get(posicion).getAm();
 		}
 		}
 	else {
@@ -111,6 +102,16 @@ public boolean cambiarAmFm() {
 Fm = !Fm;
 return false;
 
+}
+@Override
+public double bajarFrecuencia() {
+	// TODO Auto-generated method stub
+	return 0;
+}
+@Override
+public double getFavorito(int posicion) {
+	// TODO Auto-generated method stub
+	return 0;
 }
 }
 
