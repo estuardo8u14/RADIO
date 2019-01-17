@@ -8,16 +8,17 @@
  */
 
 import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Radio implements iRadio {
 private boolean Encendido = false;
-private boolean Sintonia = true;
-private double FrecuenciaAM;
-private double FrecuenciaFM;
-private ArrayList<Estacion> Botones = new ArrayList<Estacion>();;
+private boolean Fm = true;
+private int FrecuenciaAmActualizada = 1000;
+private double FrecuenciaFmActualizada = 97.7;
+private ArrayList<Estacion> Botones = new ArrayList<Estacion>();
 
 public Radio() {
-//metodo para guardar 12 estaciones
+
 	this.Botones.add(new Estacion(97.5,1000));
 	this.Botones.add(new Estacion(96.6,1000));
 	this.Botones.add(new Estacion(94.9,1000));
@@ -54,11 +55,63 @@ public String RadioActual() {
 	String frecuencia;
 	String sintonia;
 	String onyoff;
+	
 	if(encendido) {
-		if (FM) {
-			sintonia="FM";
-			
+		if (Fm) {
+			sintonia ="FM";
+			frecuencia = String.format("%.1f", FrecuenciaFmActualizada);
 		}
+		else {
+			sintonia ="AM";
+			frecuencia = String.valueOf(FrecuenciaAmActualizada);
+		}
+		onyoff= "Encendida";
+	}
+	else {
+		sintonia ="N.A.";
+		frecuencia = "N.A.";
+		onyoff = "Radio Apagada";
+	}
+	String r = "Estado:\\n\\tEstacion: "+ frecuencia +"\\n\\tFM/AM: "+ sintonia +"\\n\\tEncendido/Apagado: "+onyoff;
+	return r;
+		}
+
+public double subirFrecuencia() {
+	if (FM) {
+		FrecuenciaFmActualizada = Math.max(FrecuenciaFmActualizada -= CAMBIARFM, LIMITEFMABAJO);
+	}
+	else {
+		FrecuenciaAmActualizada = Math.max(FrecuenciaFmActualizada -= CAMBIARAM, LIMITEAMABAJO);
+	}
+	return 0;
+}
+public void setFavorito(int posición) {
+	if(posicion > 0 && posicion < 13) {
+		favoritos.set(posicion, new Estacion(FrecuenciaFmActualizada, FrecuenciaAmActualizada));
+	}
+	else {
+		System.out.println("No puedes asignarle espacio fuera de el uno y el doce, intenta denuevo.");
 	}
 }
+public double getFavoritos(int posicion) {
+	if(posicion > 0 && posicion<13) {
+		if(Fm) {
+			FrecuenciaFmActualizada = favoritos.get(posicion).getFM();
+		}
+		else {
+		FrecuenciaAmActualizada = favoritos.get(posicion).getAM();
+		}
+		}
+	else {
+		System.out.println("No puedes asignarle espacio fuera de el uno y el doce, intenta denuevo.");
+	}
+	return 0;
+	}
+public boolean cambiarAmFm() {
+Fm = !Fm;
+return false;
+
 }
+}
+
+
