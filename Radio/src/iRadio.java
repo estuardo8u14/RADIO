@@ -52,6 +52,7 @@ public double getFavorito(int posicion);
  * @return identifica cambio de estacion
  */
 public boolean cambiarAmFm();
+
     
     
 }

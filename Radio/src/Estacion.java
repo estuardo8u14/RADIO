@@ -1,4 +1,4 @@
-
+// Clase para crear una estacion
 public class Estacion {
 private double frecuenciaFm;
 private int frecuenciaAm;

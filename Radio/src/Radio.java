@@ -7,14 +7,14 @@
  *
  */
 
-import java.util.ArrayList;
+
 import java.util.ArrayList;
 
 public class Radio implements iRadio {
 private boolean Encendido = false;
 private boolean Fm = true;
 private int FrecuenciaAmActualizada = 1000;
-private double FrecuenciaFmActualizada = 97.7;
+private double FrecuenciaFmActualizada =89.7;
 private ArrayList<Estacion>botones=new ArrayList<Estacion>();
 
 public Radio() {
@@ -23,7 +23,7 @@ public Radio() {
 	}
 		
 }
-	
+	//set de limites para cada sintonia o frecuencia
 private static double LIMITEAMABAJO = 530;
 private static double LIMITEAMARRIBA = 1610;
 private static double LIMITEFMABAJO = 87.9;
@@ -32,16 +32,14 @@ private static double CAMBIARFM = 0.2;
 private static double CAMBIARAM= 10;
 private static int FAVS=12;
 
-public Boolean isOn() {
+public boolean isOn() {
 	return Encendido;
 }
 public boolean encendidoRadio() {
 	Encendido = !Encendido;
 	return false;
 }
-public String menu() {
-return "Opciones(Ingresar número de la opcion): \n 1) Subir frecuencia\n\t2) Bajar frecuencia\\n\\t3)Cambiar a FM/AM\\n\\t4)Ir a estaciones favoritas\\n\\t5)Guardar estacion en botones\\n\\t6)Encender o apagar programa";
-}
+
 public String RadioActual() {
 	String frecuencia;
 	String sintonia;
@@ -113,6 +111,21 @@ public double getFavorito(int posicion) {
 	// TODO Auto-generated method stub
 	return 0;
 }
+public static double getLIMITEAMARRIBA() {
+	return LIMITEAMARRIBA;
+}
+public static void setLIMITEAMARRIBA(double lIMITEAMARRIBA) {
+	LIMITEAMARRIBA = lIMITEAMARRIBA;
+}
+public static double getLIMITEFMARRIBA() {
+	return LIMITEFMARRIBA;
+}
+public static void setLIMITEFMARRIBA(double lIMITEFMARRIBA) {
+	LIMITEFMARRIBA = lIMITEFMARRIBA;
+}
+
+
+	
 }
 
 
